@@ -4,25 +4,85 @@
     </div>
     <div class="grid grid-cols-3 mb-4 pl-2 gap-4" [hidden]="!showFilters">
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Transactions</h2>
-        <button class="ml-auto bg-white dark:bg-gray-800 no-underline hover:underline rounded-md text-sm font-medium text-blue-200"
+        <button
+            class="ml-auto bg-white dark:bg-gray-800 no-underline hover:underline rounded-md text-sm font-medium text-blue-200"
             (click)="openAppliedFilters()">
             Applied Filters
         </button>
-        <button class="ml-auto bg-white dark:bg-gray-800 no-underline hover:underline rounded-md text-sm font-medium text-blue-600"
+        <button
+            class="ml-auto bg-white dark:bg-gray-800 no-underline hover:underline rounded-md text-sm font-medium text-blue-600"
             (click)="openFilterPopup()">
             Filters
         </button>
     </div>
-    <!-- <ng-container *ngIf="filteredRecords.length > 0; else noTransactions">
+    <ng-container *ngIf="filteredRecords.length; else noTransactions">
         <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-            <app-transaction-item *ngFor="let tx of filteredRecords; trackBy: trackById"
-                [transaction]="tx"></app-transaction-item>
+            @for(tx of filteredRecords; track tx.id) {
+            <app-transaction-items [transaction]="tx" />
+            }
         </ul>
-    </ng-container> -->
+    </ng-container>
 
     <ng-template #noTransactions>
         <p class="text-gray-500 dark:text-gray-400 text-center py-8">No transactions yet.</p>
     </ng-template>
+
+    @if (transactions().length > 0) {
+    <ng-container>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-4 space-y-2 sm:space-y-0">
+            <!-- Page size dropdown -->
+            <div class="flex items-center space-x-2">
+                <label for="pageSize" class="text-gray-500 text-sm font-medium">
+                    Items per page:
+                </label>
+                <select id="pageSize" [(ngModel)]="pageDetails.maxRecords" (ngModelChange)="onPageSizeChange()"
+                    class="border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    @for(size of pageDetails.pageSize; track size) {
+                    <option> {{ size }} </option>
+                    }
+                </select>
+            </div>
+
+            <!-- Pagination buttons -->
+            <nav class="flex justify-center sm:justify-end">
+                <nav class="flex justify-center mt-4">
+                    <ul class="inline-flex items-center space-x-1">
+                        <!-- Previous button -->
+                        <li>
+                            <button (click)="goToPage(pageDetails.currentPage - 1, 'prev')"
+                                [disabled]="pageDetails.currentPage === 1"
+                                class="text-[12px] px-3 py-1 border border-gray-300 rounded-l-md text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                ‹ Prev
+                            </button>
+                        </li>
+
+                        <!-- Page numbers -->
+                        @for(page of pageDetails.recordsList; track page) {
+                        <li>
+                            <button (click)="goToPage(page)"
+                                class="text-[12px] px-3 py-1 border border-gray-300 text-gray-500 hover:bg-gray-100"
+                                [class.bg-blue-500]="page == pageDetails.currentPage"
+                                [class.text-white]="page == pageDetails.currentPage"
+                                [class.border-blue-500]="page == pageDetails.currentPage">
+                                {{ page }}
+                            </button>
+                        </li>
+                        }
+                        <!-- Next button -->
+                        <li>
+                            <button (click)="goToPage(pageDetails.currentPage + 1, 'next')"
+                                [disabled]="pageDetails.currentPage === pageDetails.totalPages"
+                                class="text-[12px] px-3 py-1 border border-gray-300 rounded-r-md text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                Next ›
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </nav>
+        </div>
+    </ng-container>
+    }
+
 </div>
 
 <ng-container #filterContainer></ng-container>
@@ -48,7 +108,9 @@
                 </label>
                 <select id="category" name="category" [(ngModel)]="category" placeholder="Select Category"
                     class="h-40% w-40% rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white p-2">
-                    <option *ngFor="let cat of currentCategories" [value]="cat">{{ cat }}</option>
+                    @for(cat of currentCategories; track cat) {
+                    <option [value]="cat">{{ cat }}</option>
+                    }
                 </select>
 
                 <label for="description"
@@ -61,19 +123,22 @@
                 <input type="date" id="date" name="date" [(ngModel)]="fromDate"
                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white p-2" />
                 <label for="date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">To Date</label>
-                <input type="date" id="date" name="date" [value]="toDate" (change)="toDate = $event.target.value" [min]="fromDate"
+                <input type="date" id="date" name="date" [value]="toDate" (change)="toDate = $event.target.value"
+                    [min]="fromDate"
                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white p-2" />
 
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Type</span>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="flex items-center">
-                        <input id="expense" name="type" type="radio" [value]="TransactionType.EXPENSE" [checked]="type === TransactionType.EXPENSE" (change)="type = TransactionType.EXPENSE"
+                        <input id="expense" name="type" type="radio" [value]="TransactionType.EXPENSE"
+                            [checked]="type === TransactionType.EXPENSE" (change)="type = TransactionType.EXPENSE"
                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
                             [disabled]="isSaving" />
                         <label for="expense" class="ml-2 block text-sm text-gray-900 dark:text-gray-200">Expense</label>
                     </div>
                     <div class="flex items-center">
-                        <input id="income" name="type" type="radio" [value]="TransactionType.INCOME" [checked]="type === TransactionType.INCOME" (change)="type = TransactionType.INCOME"
+                        <input id="income" name="type" type="radio" [value]="TransactionType.INCOME"
+                            [checked]="type === TransactionType.INCOME" (change)="type = TransactionType.INCOME"
                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
                             [disabled]="isSaving" />
                         <label for="income" class="ml-2 block text-sm text-gray-900 dark:text-gray-200">Income</label>

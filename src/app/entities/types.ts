@@ -1,7 +1,7 @@
 import { TransactionType } from './enum'
 
 export interface Transaction {
-  id: string;
+  id: number;
   date: string;
   description: string;
   category: string;

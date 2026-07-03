@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IconInjector } from '@directives/icon-injector';
 
 @Component({
   selector: 'app-sheet-connector',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IconInjector],
   templateUrl: './sheet-connector.html'
 })
 export class SheetConnector {
@@ -17,7 +18,7 @@ export class SheetConnector {
   @Output() connect = new EventEmitter<any>();
   @Output() create = new EventEmitter<any>();
 
-  public isVisible: boolean = false;
+  public isVisible = signal(false);
   public url: string = "";
   public icons = "";
   public copySheetURL = "";
@@ -25,7 +26,7 @@ export class SheetConnector {
   public name: string = (new Date().getFullYear() + 1).toString();
 
   toggleVisibility() {
-    this.isVisible = !this.isVisible;
+    this.isVisible.set(!this.isVisible());
   }
 
   async handleConnect() {

@@ -1,0 +1,270 @@
+<ng-container #spinnerContainer></ng-container>
+<ng-template #spinnerTemplate>
+    <div class="overlay backdrop-blur-sm z-[9999] loader-wrapper">
+        @if(atomicLoader) {
+        <!-- <span class="relative rotate-45 [perspective:1000px] rounded-full w-12 h-12 text-white
+                  before:content-[''] before:block before:absolute before:top-0 before:left-0
+                  before:w-[inherit] before:h-[inherit] before:rounded-full
+                  before:[transform:rotateX(70deg)]
+                  before:animate-[spin_1s_linear_infinite]
+                  after:content-[''] after:block after:absolute after:top-0 after:left-0
+                  after:w-[inherit] after:h-[inherit] after:rounded-full
+                  after:text-[#FF3D00] after:[transform:rotateY(70deg)]
+                  after:animate-[spin_1s_linear_infinite] after:[animation-delay:.4s]"></span> -->
+        <!-- <div class="flex flex-col items-center gap-4">
+            <div class="relative rotate-45 [perspective:1000px] rounded-full w-12 h-12 text-white
+                  before:content-[''] before:block before:absolute before:top-0 before:left-0
+                  before:w-[inherit] before:h-[inherit] before:rounded-full
+                  before:[transform:rotateX(70deg)]
+                  before:animate-[spin_1s_linear_infinite]
+                  after:content-[''] after:block after:absolute after:top-0 after:left-0
+                  after:w-[inherit] after:h-[inherit] after:rounded-full
+                  after:text-[#FF3D00] after:[transform:rotateY(70deg)]
+                  after:animate-[spin_1s_linear_infinite] after:[animation-delay:.4s]">
+            </div>
+            <span class="text-sm text-neutral-400">.loader</span> 
+        </div>  -->
+        <span class="loader"></span>
+        } @else {
+        <!-- <span class="relative rotate-45 [perspective:1000px] rounded-full w-12 h-12 text-white
+                  before:content-[''] before:block before:absolute before:top-0 before:left-0
+                  before:w-[inherit] before:h-[inherit] before:rounded-full
+                  before:[transform:rotateX(70deg)]
+                  before:animate-[spin_1s_linear_infinite]
+                  after:content-[''] after:block after:absolute after:top-0 after:left-0
+                  after:w-[inherit] after:h-[inherit] after:rounded-full
+                  after:text-[#FF3D00] after:[transform:rotateY(70deg)]
+                  after:animate-[spin_1s_linear_infinite] after:[animation-delay:.4s]"></span> -->
+
+        <!-- <div class="flex flex-col items-center gap-4">
+            <div class="animate-[dotsrotate_1s_infinite] h-[50px] w-[50px]
+                  before:rounded-full before:content-[''] before:block before:h-5 before:w-5
+                  before:animate-[ball1_1s_infinite] before:bg-white
+                  before:[box-shadow:30px_0_0_#ff3d00] before:mb-[10px]
+                  after:rounded-full after:content-[''] after:block after:h-5 after:w-5
+                  after:animate-[ball2_1s_infinite] after:bg-[#ff3d00]
+                  after:[box-shadow:30px_0_0_#fff]">
+            </div>
+            <span class="text-sm text-neutral-400">.dots-loader</span> 
+        </div> -->
+        <span class="dots-loader"></span>
+        }
+    </div>
+
+</ng-template>
+
+<style>
+    .loader {
+        transform: rotateZ(45deg);
+        perspective: 1000px;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        color: #fff;
+    }
+
+    .loader:before,
+    .loader:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        height: inherit;
+        border-radius: 50%;
+        transform: rotateX(70deg);
+        animation: 1s spin linear infinite;
+    }
+
+    .loader:after {
+        color: #FF3D00;
+        transform: rotateY(70deg);
+        animation-delay: .4s;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: translate(-50%, -50%) rotateZ(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotateZ(360deg);
+        }
+    }
+
+    @keyframes rotateccw {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(-360deg);
+        }
+    }
+
+    @keyframes spin {
+
+        0%,
+        100% {
+            box-shadow: .2em 0px 0 0px currentcolor;
+        }
+
+        12% {
+            box-shadow: .2em .2em 0 0 currentcolor;
+        }
+
+        25% {
+            box-shadow: 0 .2em 0 0px currentcolor;
+        }
+
+        37% {
+            box-shadow: -.2em .2em 0 0 currentcolor;
+        }
+
+        50% {
+            box-shadow: -.2em 0 0 0 currentcolor;
+        }
+
+        62% {
+            box-shadow: -.2em -.2em 0 0 currentcolor;
+        }
+
+        75% {
+            box-shadow: 0px -.2em 0 0 currentcolor;
+        }
+
+        87% {
+            box-shadow: .2em -.2em 0 0 currentcolor;
+        }
+    }
+
+
+
+    /*dots spinner*/
+    .dots-loader {
+        animation: rotate 1s infinite;
+        height: 50px;
+        width: 50px;
+    }
+
+    .dots-loader:before,
+    .dots-loader:after {
+        border-radius: 50%;
+        content: "";
+        display: block;
+        height: 20px;
+        width: 20px;
+    }
+
+    .dots-loader:before {
+        animation: ball1 1s infinite;
+        background-color: #fff;
+        box-shadow: 30px 0 0 #ff3d00;
+        margin-bottom: 10px;
+    }
+
+    .dots-loader:after {
+        animation: ball2 1s infinite;
+        background-color: #ff3d00;
+        box-shadow: 30px 0 0 #fff;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg) scale(0.8)
+        }
+
+        50% {
+            transform: rotate(360deg) scale(1.2)
+        }
+
+        100% {
+            transform: rotate(720deg) scale(0.8)
+        }
+    }
+
+    @keyframes ball1 {
+        0% {
+            box-shadow: 30px 0 0 #ff3d00;
+        }
+
+        50% {
+            box-shadow: 0 0 0 #ff3d00;
+            margin-bottom: 0;
+            transform: translate(15px, 15px);
+        }
+
+        100% {
+            box-shadow: 30px 0 0 #ff3d00;
+            margin-bottom: 10px;
+        }
+    }
+
+    @keyframes ball2 {
+        0% {
+            box-shadow: 30px 0 0 #fff;
+        }
+
+        50% {
+            box-shadow: 0 0 0 #fff;
+            margin-top: -20px;
+            transform: translate(15px, 15px);
+        }
+
+        100% {
+            box-shadow: 30px 0 0 #fff;
+            margin-top: 0;
+        }
+    }
+
+    /*after styles*/
+
+    .loader-wrapper {
+        display: flex;
+        justify-content: center;
+        /* horizontal center */
+        align-items: center;
+        /* vertical center */
+        height: 100vh;
+        /* full screen */
+        width: 100%;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .body {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        filter: blur(10px);
+        transform: scale(1.2);
+        animation: getBlurry 0.5s linear;
+        background: transparent;
+        background-size: cover;
+    }
+
+    @keyframes getBlurry {
+        0% {
+            filter: blur(0px);
+            transform: scale(1);
+        }
+
+        100% {
+            filter: blur(10px);
+            transform: scale(1.2);
+        }
+    }
+</style>

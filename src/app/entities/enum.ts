@@ -27,7 +27,26 @@ export enum SheetURL {
 }
 
 export const TransactionConstants = {
-  COLLECTION_RECURRING_TRANSACTION : "recurring_transactions",
-  COLLECTION_TRANSACTION_METADATA : "transaction_metadata",
+  COLLECTION_RECURRING_TRANSACTION: "recurring_transactions",
+  COLLECTION_TRANSACTION_METADATA: "transaction_metadata",
   STORAGE_TOKEN: "token"
+}
+
+export const PageDetails = {
+  currentPage: 1,
+  totalPages: 0,
+  pageSize: [5, 10, 15, 20],
+  maxRecords: 5,
+  recordsList: [] as any[],
+  lastRecordPage: 5,
+  flow: 'next'
+}
+
+export const FilterEntities = {
+  showAppliedFilters: false,
+  description: '',
+  type: '',
+  category: '',
+  fromDate: '',
+  toDate: ''
 }
