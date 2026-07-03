@@ -94,11 +94,11 @@ export const icons = {
     </svg>
     `,
 
-    NotifyError1Icon: `
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M6 18L18 6M6 6l12 12" />
+    NotifyWarningIcon: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+        <line x1="12" y1="9" x2="12" y2="13"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
     </svg>
     `,
 
@@ -119,6 +119,12 @@ export const icons = {
         viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M13 16h-1v-4h-1m1-4h.01M12 18a9 9 0 100-18a9 9 0 000 18z" />
+    </svg>
+    `,
+
+    TransactionDeleteIcon: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 3v1H4v2h16V4h-5V3H9zM5 7v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H5zm4 3h2v9H9v-9zm4 0h2v9h-2v-9z"/>
     </svg>
     `,
 

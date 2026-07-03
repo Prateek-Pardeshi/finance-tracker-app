@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Transaction } from '@entities/types';
 import { TransactionConstants } from '@entities/enum';
-import { Observable, Subject } from 'rxjs';
-import { Firestore, collection, addDoc, collectionData, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 
 @Injectable({
     providedIn: 'root'
@@ -12,10 +11,6 @@ export class FirebaseDataService {
     constructor() { }
 
     private firestore = inject(Firestore);
-
-    ngOnInit() {
-        // this.transactions$ = this.transactionsSubject.asObservable();
-    }
 
     addTransaction(transaction: Transaction): Promise<any> {
         const transactionCollection = collection(this.firestore, TransactionConstants.COLLECTION_RECURRING_TRANSACTION);
@@ -30,6 +25,11 @@ export class FirebaseDataService {
     updateData(COLLECTION_REF: string, data: any) {
         const docRef = doc(this.firestore, COLLECTION_REF);
         return updateDoc(docRef, data);
+    }
+
+    deleteData(data: any) {
+        const docRef = doc(this.firestore, `${TransactionConstants.COLLECTION_RECURRING_TRANSACTION}/${data.id}`);
+        return deleteDoc(docRef);
     }
 
     checkAndAddRecurringTransactions(allTrans: Transaction[], recTrans: Transaction[], values: Transaction): Transaction[] {

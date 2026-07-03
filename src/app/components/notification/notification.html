@@ -1,13 +1,13 @@
 <ng-container #notificationContainer></ng-container>
 
 <!-- notification popup -->
-<ng-template #notificationPopUp let-message="message" let-type="type">
+<ng-template #notificationPopUp let-message="message" let-type="type" let-style="style">
     <div class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-[9999]">
-        <div #popUpDiv class="relative w-80 rounded-2xl shadow-2xl text-white p-6 pop-in" 
-        [ngClass]="[
+        <div #popUpDiv class="relative w-80 rounded-2xl shadow-2xl text-white p-6 pop-in" [ngClass]="[
             type === 'success' ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : '',
             type === 'error' ? 'bg-gradient-to-br from-rose-500 to-red-600' : '',
-            type === 'info' ? 'bg-gradient-to-br from-sky-500 to-indigo-600' : ''
+            type === 'info' ? 'bg-gradient-to-br from-sky-500 to-indigo-600' : '',
+            type === 'warning' ? 'bg-gradient-to-br from-amber-500 to-red-500' : ''
         ]">
 
             <button class="absolute top-3 right-3 rounded-full bg-white/20 hover:bg-white/30 p-1 transition"
@@ -18,30 +18,43 @@
                 </svg>
             </button>
 
-            <div class="flex items-center justify-center mb-4">
+            <div class="flex items-center justify-center-safe mb-4">
                 <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20">
                     @switch (type) {
-                        @case ('success') {
-                            <span [iconName]="'notify-success-icon'" appIconInjector></span>
-                        }
-                        @case ('error1') {
-                            <span [iconName]="'notify-error1-icon'" appIconInjector></span>
-                        }
-                        @case ('error') {
-                            <span [iconName]="'notify-error-icon'" appIconInjector></span>
-                        }
-                        @case ('info') {
-                            <span [iconName]="'notify-info-icon'" appIconInjector></span>
-                        }
+                    @case ('success') {
+                    <span [iconName]="'notify-success-icon'" appIconInjector></span>
+                    }
+                    @case ('warning') {
+                    <span [iconName]="'notify-warning-icon'" appIconInjector></span>
+                    }
+                    @case ('error') {
+                    <span [iconName]="'notify-error-icon'" appIconInjector></span>
+                    }
+                    @case ('info') {
+                    <span [iconName]="'notify-info-icon'" appIconInjector></span>
+                    }
                     }
                 </div>
+                <h3 class="text-lg font-semibold mb-1 px-3">
+                    {{ type === 'success' ? 'Success!' : type === 'error' ? 'Error!' : type === 'warning' ? 'warning!' :
+                    'Information' }}
+                </h3>
             </div>
 
             <div class="text-center">
-                <h3 class="text-lg font-semibold mb-1">
-                    {{ type === 'success' ? 'Success!' : type === 'error' ? 'Error!' : 'Information' }}
-                </h3>
                 <p class="text-sm text-white/90">{{ message }}</p>
+            </div>
+
+            @if(type === 'warning' && style === 'pop-up') {}
+            <div class="flex justify-between mt-4">
+                <button type="submit" (click)="onConfirmation(true)"
+                    class="inline-flex items-center justify-center border border-transparent  rounded-xl bg-white/20 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-white/40 focus:outline-none focus:ring-1 focus:ring-bg-white/40 focus:ring-offset-1">
+                    Yes
+                </button>
+                <button type="submit" (click)="onConfirmation(false)"
+                    class="inline-flex items-center justify-center border border-transparent  rounded-xl bg-white/20 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-white/40 focus:outline-none focus:ring-1 focus:ring-bg-white/40 focus:ring-offset-1">
+                    No
+                </button>
             </div>
         </div>
     </div>

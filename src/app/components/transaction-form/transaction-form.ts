@@ -1,8 +1,9 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TransactionType } from '@/app/entities/enum';
 import { ConfigService } from '@services/config.service';
 import { IconInjector } from '@directives/icon-injector';
+import { Transaction } from '@/app/entities/types';
 
 @Component({
   selector: 'app-transaction-form',
@@ -13,6 +14,7 @@ import { IconInjector } from '@directives/icon-injector';
 export class TransactionFormComponent {
   @Input() title: WritableSignal<string> = signal('Add New Transaction');
   @Input() isSaving: WritableSignal<boolean> = signal(false);
+  @Output() addTransaction = new EventEmitter<Omit<Transaction, 'id'>>();
 
   description: string = '';
   type: TransactionType = TransactionType.EXPENSE;
@@ -73,14 +75,13 @@ export class TransactionFormComponent {
     if (!this.description || this.amount === null || !this.date || !this.category || this.isSaving()) {
       return;
     }
-
-    // this.addTransaction.emit({
-    //   date: this.date,
-    //   amount: this.amount,
-    //   description: this.description,
-    //   category: this.category,
-    //   type: this.type
-    // });
+    this.addTransaction.emit({
+      date: this.date,
+      amount: this.amount,
+      description: this.description,
+      category: this.category,
+      type: this.type
+    });
   }
 
   public resetForm(): void {

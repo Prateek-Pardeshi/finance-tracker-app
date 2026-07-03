@@ -1,1 +1,359 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Spinner Styles */
+
+.loader {
+        transform: rotateZ(45deg);
+        perspective: 1000px;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        color: #fff;
+    }
+
+    .loader:before,
+    .loader:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        height: inherit;
+        border-radius: 50%;
+        transform: rotateX(70deg);
+        animation: 1s spin linear infinite;
+    }
+
+    .loader:after {
+        color: #FF3D00;
+        transform: rotateY(70deg);
+        animation-delay: .4s;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: translate(-50%, -50%) rotateZ(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotateZ(360deg);
+        }
+    }
+
+    @keyframes rotateccw {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(-360deg);
+        }
+    }
+
+    @keyframes spin {
+
+        0%,
+        100% {
+            box-shadow: .2em 0px 0 0px currentcolor;
+        }
+
+        12% {
+            box-shadow: .2em .2em 0 0 currentcolor;
+        }
+
+        25% {
+            box-shadow: 0 .2em 0 0px currentcolor;
+        }
+
+        37% {
+            box-shadow: -.2em .2em 0 0 currentcolor;
+        }
+
+        50% {
+            box-shadow: -.2em 0 0 0 currentcolor;
+        }
+
+        62% {
+            box-shadow: -.2em -.2em 0 0 currentcolor;
+        }
+
+        75% {
+            box-shadow: 0px -.2em 0 0 currentcolor;
+        }
+
+        87% {
+            box-shadow: .2em -.2em 0 0 currentcolor;
+        }
+    }
+
+
+
+    /*dots spinner*/
+    .dots-loader {
+        animation: rotate 1s infinite;
+        height: 50px;
+        width: 50px;
+    }
+
+    .dots-loader:before,
+    .dots-loader:after {
+        border-radius: 50%;
+        content: "";
+        display: block;
+        height: 20px;
+        width: 20px;
+    }
+
+    .dots-loader:before {
+        animation: ball1 1s infinite;
+        background-color: #fff;
+        box-shadow: 30px 0 0 #ff3d00;
+        margin-bottom: 10px;
+    }
+
+    .dots-loader:after {
+        animation: ball2 1s infinite;
+        background-color: #ff3d00;
+        box-shadow: 30px 0 0 #fff;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg) scale(0.8)
+        }
+
+        50% {
+            transform: rotate(360deg) scale(1.2)
+        }
+
+        100% {
+            transform: rotate(720deg) scale(0.8)
+        }
+    }
+
+    @keyframes ball1 {
+        0% {
+            box-shadow: 30px 0 0 #ff3d00;
+        }
+
+        50% {
+            box-shadow: 0 0 0 #ff3d00;
+            margin-bottom: 0;
+            transform: translate(15px, 15px);
+        }
+
+        100% {
+            box-shadow: 30px 0 0 #ff3d00;
+            margin-bottom: 10px;
+        }
+    }
+
+    @keyframes ball2 {
+        0% {
+            box-shadow: 30px 0 0 #fff;
+        }
+
+        50% {
+            box-shadow: 0 0 0 #fff;
+            margin-top: -20px;
+            transform: translate(15px, 15px);
+        }
+
+        100% {
+            box-shadow: 30px 0 0 #fff;
+            margin-top: 0;
+        }
+    }
+
+    /*after styles*/
+
+    .loader-wrapper {
+        display: flex;
+        justify-content: center;
+        /* horizontal center */
+        align-items: center;
+        /* vertical center */
+        height: 100vh;
+        /* full screen */
+        width: 100%;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .body {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        filter: blur(10px);
+        transform: scale(1.2);
+        animation: getBlurry 0.5s linear;
+        background: transparent;
+        background-size: cover;
+    }
+
+    @keyframes getBlurry {
+        0% {
+            filter: blur(0px);
+            transform: scale(1);
+        }
+
+        100% {
+            filter: blur(10px);
+            transform: scale(1.2);
+        }
+    }
+
+/* Nav Menu Styles*/
+
+.menu-checkbox {
+    display: none;
+}
+
+.menu {
+    position: relative;
+}
+
+.menu-dots {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.3rem #161e3f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+    transition: 0.3s;
+    cursor: pointer;
+    /* background: linear-gradient(to left, #2bc0e4, #eaecc6); */
+    background: #303b70;
+    background: radial-gradient(circle, rgba(48, 59, 112, 1) 1%, rgba(36, 40, 94, 1) 49%, rgba(18, 7, 235, 0.51) 100%);
+    /* background: #070787;*/
+    /* background: radial-gradient(circle, rgba(7, 7, 135, 1) 0%, rgba(86, 76, 230, 1) 49%, rgba(7, 7, 135, 0.73) 100%);*/
+}
+
+.menu-dots:hover {
+    box-shadow: 0 0 0 0.3rem #161e3f, 0 0 0 1rem rgba(#161e3f, 0.16);
+    transform: scale(1.2) rotate(90deg);
+    /* background: linear-gradient(to left, #2bc0e4, #eaecc6);*/
+    background: #303b70;
+    background: radial-gradient(circle, rgba(48, 59, 112, 1) 1%, rgba(36, 40, 94, 1) 49%, rgba(18, 7, 235, 0.51) 100%);
+    /* background: #070787;*/
+    /* background: radial-gradient(circle, rgba(7, 7, 135, 1) 0%, rgba(86, 76, 230, 1) 49%, rgba(7, 7, 135, 0.73) 100%);*/
+}
+
+.menu-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    background-color: #161e3f;
+    border-radius: 50%;
+}
+
+.menu-dot+.menu-dot {
+    margin-top: 0.3rem;
+}
+
+.menu-items {
+    position: absolute;
+    top: -2.3rem;
+    left: -2.2rem;
+    width: 9.4rem;
+    height: 11rem;
+    color: #fff;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.menu-item {
+    transform: scale(0.5);
+    filter: blur(10px);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.menu-item:nth-child(odd) {
+    text-align: right;
+}
+
+.menu-item:nth-child(even) {
+    text-align: left;
+}
+
+.menu-item:first-child,
+.menu-item:last-child {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.menu-checkbox:checked+.menu>.menu-dots {
+    transform: none;
+    box-shadow: 0 0 0 3.4rem #161e3f;
+}
+
+.menu-checkbox:checked+.menu>.menu-items {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu-closer-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item:nth-child(4) {
+    transition-delay: 0.2s;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item:nth-child(5) {
+    transition-delay: 0.25s;
+}
+
+.menu-checkbox:checked+.menu>.menu-items>.menu-item:nth-child(6) {
+    transition-delay: 0.3s;
+}
+
+.menu-checkbox:checked+.menu>.menu-closer-overlay {
+    pointer-events: auto;
+    cursor: pointer;
+}

@@ -112,6 +112,14 @@ export class AddDataRecords {
       });
   }
 
+  deleteTransaction(transaction: Transaction) {
+    this.SpinnerService.startSpinner(false);
+    this.dataService.deleteData(transaction).then(()=>{
+      this.SpinnerService.stopSpinner();
+      this.notificationService.open(NotificationStyle.TOAST, "Record Deleted Successfully", NotificationType.SUCCESS)
+    })
+  }
+
   valueChange(key:string, value: any): void {
     (this.metadata as any)[key] = value;
   }

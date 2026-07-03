@@ -1,4 +1,4 @@
 <app-sheet-connector/>
 <app-summary [transactions]="transactions"/>
-<app-transaction-form/>
+<app-transaction-form [isSaving]="isSaving" (addTransaction)="handleAddTransaction($event)"/>
 <app-transaction-list [transactions]="transactions"/>

@@ -53,14 +53,17 @@ export class IconInjector implements AfterViewInit {
         case 'notify-success-icon':
         this.element.nativeElement.innerHTML = icons.NotifySuccessIcon;
         break;
-      case 'notify-error1-icon':
-        this.element.nativeElement.innerHTML = icons.NotifyError1Icon;
+      case 'notify-warning-icon':
+        this.element.nativeElement.innerHTML = icons.NotifyWarningIcon;
         break;
       case 'notify-error-icon':
         this.element.nativeElement.innerHTML = icons.NotifyErrorIcon;
         break;
       case 'notify-info-icon':
         this.element.nativeElement.innerHTML = icons.NotifyInfoIcon;
+        break;
+      case 'transaction-delete-icon':
+        this.element.nativeElement.innerHTML = icons.TransactionDeleteIcon;
         break;
     }
   }

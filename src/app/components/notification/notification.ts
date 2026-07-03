@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, TemplateRef, ViewChild, ElementRef, ChangeDetectionStrategy, Directive } from '@angular/core';
+import { Component, ViewContainerRef, TemplateRef, ViewChild, ElementRef, ChangeDetectionStrategy, Directive, signal } from '@angular/core';
 import { NotificationStyle } from '@entities/enum';
 import { CommonModule } from '@angular/common';
 import { IconInjector } from '@directives/icon-injector';
@@ -25,6 +25,8 @@ export class Notification {
     @ViewChild('popUpDiv', { static: false })
     popUpDivRef!: ElementRef;
 
+    confirmation = signal(false);
+
     constructor() { }
 
     async showNotification(notificationStyle: any, message: string, type: string, duration: number = 3000): Promise<void> {
@@ -34,7 +36,8 @@ export class Notification {
             if (notificationStyle === NotificationStyle.TOAST) {
                 this.notificationContainerRef.createEmbeddedView(this.notificationToastTemplateRef, {
                     message: message,
-                    type: type
+                    type: type,
+                    style: notificationStyle
                 });
 
                 this.closeNotification(duration).then(() => {
@@ -43,11 +46,18 @@ export class Notification {
             } else {
                 this.notificationContainerRef.createEmbeddedView(this.notificationPopUpTemplateRef, {
                     message: message,
-                    type: type
+                    type: type,
+                    style: notificationStyle
                 });
             }
 
         }
+    }
+
+    onConfirmation(response: boolean): Promise<boolean> {
+        return new Promise<boolean>(()=> {
+            return response;
+        });
     }
 
     closeNotification(delay: number = 1000): Promise<void> {

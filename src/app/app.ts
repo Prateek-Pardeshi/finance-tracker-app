@@ -4,10 +4,11 @@ import { SpinnerComponent } from '@components/spinner/spinner';
 import { SpinnerService } from '@components/spinner/spinner.service';
 import { Notification } from "@components/notification/notification";
 import { NotificationService } from "@components/notification/notification.service";
+import { NavMenu } from '@components/nav-menu/nav-menu';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SpinnerComponent, Notification],
+  imports: [RouterOutlet, SpinnerComponent, Notification, NavMenu],
   templateUrl: './app.html'
 })
 export class App implements OnInit, AfterViewInit {

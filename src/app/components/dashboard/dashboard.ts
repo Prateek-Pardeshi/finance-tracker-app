@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, WritableSignal, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, WritableSignal, inject, signal } from '@angular/core';
 import { TransactionFormComponent } from '../transaction-form/transaction-form';
 import { SummaryComponent } from '../summary/summary';
 import { TransactionListComponent } from '../transaction-list/transaction-list';
@@ -17,11 +17,14 @@ import { NotificationService } from '@components/notification/notification.servi
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  @ViewChild(TransactionFormComponent) private txFormComponent!: TransactionFormComponent;
+  @ViewChild(SheetConnector) private sheetConnectorComponent!: SheetConnector;
+
   transactions: WritableSignal<Transaction[]>  = signal([]);
+  isSaving: WritableSignal<boolean> = signal(false);
   sheetUrl: string = '';
   isConnected: boolean = false;
-  isConnecting: boolean = false;
-  isSaving: boolean = false;
+  isConnecting: boolean = false;  
   data: any;
 
   private sheetsService = inject(SheetService);
@@ -64,6 +67,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.sheetsService.sheetDetails.transactionList = transactions;
         this.transactions.set(transactions);
         this.spinnerService.stopSpinner();
+      });
+  }
+
+  handleAddTransaction(transaction: Transaction): void {
+    this.isSaving.set(true);
+    this.notifyService.open(NotificationStyle.TOAST, 'Saving transaction...', NotificationType.INFO, 1000);
+    this.spinnerService.startSpinner(false);
+    new Promise<void>((resolve) => {
+      this.sheetsService.addTransaction(transaction, this.transactions())
+        .subscribe({
+          next: (resonse: any) => {
+            if (resonse != null) {
+              let tempTrans = this.transactions();
+              this.transactions.update(() => this.sheetsService.sortTransactions(tempTrans));
+              this.spinnerService.stopSpinner();
+              this.notifyService.open(NotificationStyle.TOAST, 'Transaction Added!', NotificationType.SUCCESS, 2000);
+              location.reload()
+            }
+          },
+          error: (err: any) => {
+            this.notifyService.open(NotificationStyle.POPUP, err.message ? err.message : err, NotificationType.ERROR);
+          }
+        });
+      resolve();
+    })
+      .finally(() => {        
+        this.isSaving.set(false);
+        if (this.txFormComponent) {
+          this.txFormComponent.resetForm();
+        }
       });
   }
 

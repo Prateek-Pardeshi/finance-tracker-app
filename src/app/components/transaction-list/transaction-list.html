@@ -18,7 +18,7 @@
     <ng-container *ngIf="filteredRecords.length; else noTransactions">
         <ul class="divide-y divide-gray-200 dark:divide-gray-700">
             @for(tx of filteredRecords; track tx.id) {
-            <app-transaction-items [transaction]="tx" />
+            <app-transaction-items [transaction]="tx" [allowDelete]="!showFilters"/>
             }
         </ul>
     </ng-container>
@@ -26,6 +26,8 @@
     <ng-template #noTransactions>
         <p class="text-gray-500 dark:text-gray-400 text-center py-8">No transactions yet.</p>
     </ng-template>
+
+    <!-- Pagination -->
 
     @if (transactions().length > 0) {
     <ng-container>

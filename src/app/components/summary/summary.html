@@ -65,7 +65,7 @@
     </div>
 </ng-template>
 
-<ng-template #chartTemplate let-transactions="transactions">
+<ng-template #chartTemplate>
     <div class="grid grid-cols-1 md:grid-cols-1 mb-8">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6" [ngClass]="isChartVisible('Expense') ? '' : 'hidden'">
             <app-charts [transactions]="transactions" [chartType]="'Expense'"></app-charts>
