@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>FinanceTrackerApp</title>
@@ -8,8 +9,16 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <!-- JS -->
   <script src="js/tailwind-css.js"></script>
+  <script>
+    window.addEventListener('beforeunload', loadSite(), false);
+    function loadSite() {
+      location.href = location.origin + '/finance-tracker-app/';
+    }
+  </script>
 </head>
+
 <body class="bg-gray-50 dark:bg-gray-900">
   <app-root></app-root>
 </body>
+
 </html>
