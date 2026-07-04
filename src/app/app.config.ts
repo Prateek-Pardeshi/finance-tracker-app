@@ -19,6 +19,6 @@ export const appConfig: ApplicationConfig = {
       
       return configService.loadMetadata();
     }),
-    { provide: APP_BASE_HREF, useValue: '/finance-tracker-app/#' }
+    { provide: APP_BASE_HREF, useValue: '/finance-tracker-app/' }
   ]
 };
