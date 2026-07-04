@@ -27,6 +27,15 @@ export interface ModelList {
   name: string;
 }
 
+export interface Message {
+  id: number;
+  text: string;
+  sender: 'user' | 'bot';
+  time: string;
+  status?: 'sent' | 'delivered' | 'read';
+  suggestions?: string[];
+}
+
 export class TransactionMetadata {
   COPY_SHEET_URL : string = "";
   DEFAULT_SHEET_URL : string = "";

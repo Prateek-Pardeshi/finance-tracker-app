@@ -32,7 +32,6 @@ export class NavMenu {
         break;
       case 'chat':
         this.router.navigate(['/ai-chat']);
-        // document.body.classList.add('overflow-hidden');
         break;
     }
   }

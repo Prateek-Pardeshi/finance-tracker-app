@@ -63,29 +63,15 @@
                 <!-- Login icon -->
                 <span [iconName]="'login-icon'" appIconInjector></span>
             </li>
-            <li class="menu-item mt-2 text-gray-500" >
+            <li class="menu-item mt-2 text-white-500" >
                 <button command="show-modal" commandfor="drawer" class="mr-3" (click)="svgAction('chat')">
+                     <!-- chat icon -->
                     <span [iconName]="'chat-icon'" appIconInjector></span>
                 </button>                
             </li>
             <li class="menu-item ml-12 pl-2 mb-3" (click)="svgAction('bottom')">
                 <!-- Bottom Icon -->
-                <svg class="transition-transform duration-150 active:scale-90 focus:outline-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 65 65">
-                    <!-- Arrow pointing down -->
-                    <path fill="#ffffff" d="M32 33L48 17H38V2H26v15H16z" />
-
-                    <!-- Letter L -->
-                    <path fill="#ffffff" d="M12 40h3v19h9v3H12V40z" />
-
-                    <!-- Letter O -->
-                    <path fill="#ffffff"
-                        d="M26 46c0-3.308 2.692-6 6-6s6 2.692 6 6v10c0 3.308-2.692 6-6 6s-6-2.692-6-6V46m3 0v10c0 1.654 1.346 3 3 3s3-1.346 3-3V46c0-1.654-1.346-3-3-3s-3 1.346-3 3z" />
-
-                    <!-- Letter W (M flipped 180 degrees) -->
-                    <g transform="translate(46.5, 51) rotate(180)">
-                        <path fill="#ffffff" d="M-6.5 -11h3v22h-3v-15l3 15h3l3-15v15h3v-22h-3l-3 15l-3-15z" />
-                    </g>                    
-                </svg>
+                <span [iconName]="'bottom-icon'" appIconInjector></span>
             </li>
         </ul>
         <label for="menu" class="menu-closer-overlay"></label>

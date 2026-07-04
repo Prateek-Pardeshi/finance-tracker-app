@@ -50,7 +50,10 @@ export class IconInjector implements AfterViewInit {
       case 'chat-icon':
         this.element.nativeElement.innerHTML = icons.ChatIcon;
         break;
-        case 'notify-success-icon':
+      case 'bottom-icon':
+        this.element.nativeElement.innerHTML = icons.BottomIcon;
+        break;
+      case 'notify-success-icon':
         this.element.nativeElement.innerHTML = icons.NotifySuccessIcon;
         break;
       case 'notify-warning-icon':
@@ -64,6 +67,9 @@ export class IconInjector implements AfterViewInit {
         break;
       case 'transaction-delete-icon':
         this.element.nativeElement.innerHTML = icons.TransactionDeleteIcon;
+        break;
+      case 'chat-brain-icon':
+        this.element.nativeElement.innerHTML = icons.ChatBrainIcon;
         break;
     }
   }
