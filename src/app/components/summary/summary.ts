@@ -38,7 +38,7 @@ export class SummaryComponent implements OnInit {
   finalBalance: number = 0;
   viewSummary: boolean = true;
   months: any[] = [];
-  month: any = new Date().getMonth() + 1;
+  month: any = {id: 0, name: ""};
 
   private sheetService = inject(SheetService);
   private configService = inject(ConfigService);
@@ -62,7 +62,7 @@ export class SummaryComponent implements OnInit {
       });
     }
 
-    // !skipSubscription && this.sheetService.transactionsSubject.next(tempTransactions);
+    // !skipSubscription && this.transactions.set(tempTransactions);
 
     this.totalIncome = tempTransactions
       .filter(t => t.type === TransactionType.INCOME)
@@ -118,7 +118,7 @@ export class SummaryComponent implements OnInit {
   }
 
   showSummaryDurationWise(): void {
-    if (this.duration === "Monthly" && (!this.months || this.months.length == 0)) {
+    if (this.duration === "Monthly" && this.months) {
       this.months = this.configService.config.MONTH;
       this.month = this.months ? this.months[new Date().getMonth()] : this.month;
     }

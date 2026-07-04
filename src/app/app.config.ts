@@ -18,7 +18,6 @@ export const appConfig: ApplicationConfig = {
       const configService = inject(ConfigService);
       
       return configService.loadMetadata();
-    }),
-    { provide: APP_BASE_HREF, useValue: '/finance-tracker-app/' }
+    })
   ]
 };

@@ -10,7 +10,7 @@
         <select id="duration" name="duration" [(ngModel)]="month" (change)="showSummaryDurationWise()" [ngClass]="duration !== 'Monthly' ? 'hidden' : ''"
             class="h-40% w-40% rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white p-2">
             @for(mon of months; track mon) {
-                <option [value]="mon.name">{{ mon.name }}</option>
+                <option [value]="mon">{{ mon.name }}</option>
             }            
         </select>
     </div>
