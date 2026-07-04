@@ -36,6 +36,6 @@ export class SheetConnector {
 
   handleReset() {
     this.url = '';
-    window.location.reload();
+    location.href = location.origin + '/finance-tracker-app/';
   }
 }

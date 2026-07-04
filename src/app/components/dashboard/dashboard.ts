@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               this.transactions.update(() => this.sheetsService.sortTransactions(tempTrans));
               this.spinnerService.stopSpinner();
               this.notifyService.open(NotificationStyle.TOAST, 'Transaction Added!', NotificationType.SUCCESS, 2000);
-              location.reload()
+              location.href = location.origin + '/finance-tracker-app/';
             }
           },
           error: (err: any) => {

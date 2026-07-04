@@ -36,7 +36,7 @@ export class TransactionItems {
     });
     
     // this.dataService.deleteData(transaction).then(()=>{
-    //   location.reload();
+    //   location.href = location.origin + '/finance-tracker-app/'
     // })
   }
 }
